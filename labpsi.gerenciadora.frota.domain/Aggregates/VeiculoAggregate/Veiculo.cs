@@ -1,20 +1,30 @@
 ﻿using labpsi.gerenciadora.frota.domain.SeedWork;
+using Newtonsoft.Json;
 using System;
 
 namespace labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate
 {
     public class Veiculo : Entity, IAggregateRoot
     {
-
+        [JsonProperty("placa")]
         private string _placa;
+        [JsonProperty("modelo")]
         private string _modelo;
+        [JsonProperty("ano")]
         private int _ano;
+        [JsonProperty("chassi")]
         private string _chassi;
+        [JsonProperty("renavam")]
         private string _renavam;
+        [JsonProperty("marca")]
         private string _marca;
+        [JsonProperty("cor")]
         private string _cor;
+        [JsonProperty("valorPago")]
         private decimal _valorPago;
+        [JsonProperty("mesIpva")]
         private int _mesIpva;
+        [JsonProperty("kmAtual")]
         private string _kmAtual;
         //private int _combustivelId;
         //public Combustivel Combustivel { get; private set; }
