@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\labpsi.gerenciadora.frota.application\labpsi.gerenciadora.frota.application.csproj" />
+    <ProjectReference Include="..\labpsi.gerenciadora.frota.domain\labpsi.gerenciadora.frota.domain.csproj" />
+    <ProjectReference Include="..\labpsi.gerenciadora.frota.infra.crosscutting.ioc\labpsi.gerenciadora.frota.infra.crosscutting.ioc.csproj" />
+  </ItemGroup>
+
+
+</Project>

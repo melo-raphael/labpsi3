@@ -1,0 +1,64 @@
+﻿using System.Threading.Tasks;
+using labpsi.gerenciadora.frota.application.Commands;
+using labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace labpsi.gerenciadora.frota.api.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class VeiculosController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+        private readonly IVeiculoRepository _veiculoRepository;
+        private readonly ILogger<VeiculosController> _logger;
+
+        public VeiculosController(IMediator mediator, IVeiculoRepository veiculoRepository, ILogger<VeiculosController> logger)
+        {
+            _mediator = mediator;
+            _veiculoRepository = veiculoRepository;
+            _logger = logger;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CriarVeiculo([FromBody] CriarNovoVeiculoCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ObterVeiculos()
+        {
+            var result = _veiculoRepository.GetAllVeiculos();
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ObterVeiculoPorId([FromQuery] string id)
+        {
+            var result = _veiculoRepository.GetAllVeiculos();
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarVeiculoPorId([FromQuery] string id)
+        {
+            await _veiculoRepository.DeletarVeiculoPorId(id);
+            return NoContent();
+        }
+
+        [HttpPut("{id}/km}")]
+        public async Task<IActionResult> AlterarKilometroRodadoVeiculo([FromBody]AlterarKmCommand command, [FromQuery] string id)
+        {
+            command.VeiculoId = id;
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
+    }
+}
