@@ -15,55 +15,59 @@ namespace labpsi.gerenciadora.frota.infra.data.Mapping
             builder.Property(veiculo => veiculo.Id)
              .HasDefaultValue(Guid.NewGuid());
 
-            builder.Property("_placa")
+            builder.Property("Placa")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Placa")
                    .IsRequired();
 
-            builder.Property("_modelo")
+            builder.Property("Modelo")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Modelo")
                    .IsRequired();
 
-            builder.Property("_ano")
+            builder.Property("Ano")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Ano")
                    .IsRequired();
 
-            builder.Property("_chassi")
+            builder.Property("Chassi")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Chassi")
                    .IsRequired();
 
-            builder.Property("_renavam")
+            builder.Property("Renavam")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Renavam")
                    .IsRequired();
 
-            builder.Property("_marca")
+            builder.Property("Marca")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Marca")
                    .IsRequired();
 
-            builder.Property("_cor")
+            builder.Property("Cor")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("Cor")
                    .IsRequired();
 
-            builder.Property("_valorPago")
+            builder.Property("ValorPago")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("ValorPago")
                    .IsRequired();
 
-            builder.Property("_mesIpva")
+            builder.Property("MesIpva")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("MesIpva")
                    .IsRequired();
 
-            builder.Property("_kmAtual")
+            builder.Property("KmAtual")
                    .UsePropertyAccessMode(PropertyAccessMode.Field)
                    .HasColumnName("KmAtual")
                    .IsRequired();
+
+            var navigation = builder.Metadata.FindNavigation(nameof(Veiculo._km));
+
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
 
             //builder.Property("_combustivelId")
             //       .UsePropertyAccessMode(PropertyAccessMode.Field)

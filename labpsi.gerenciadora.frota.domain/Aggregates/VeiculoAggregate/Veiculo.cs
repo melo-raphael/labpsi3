@@ -6,29 +6,20 @@ namespace labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate
 {
     public class Veiculo : Entity, IAggregateRoot
     {
-        [JsonProperty("placa")]
-        private string _placa;
-        [JsonProperty("modelo")]
-        private string _modelo;
-        [JsonProperty("ano")]
-        private int _ano;
-        [JsonProperty("chassi")]
-        private string _chassi;
-        [JsonProperty("renavam")]
-        private string _renavam;
-        [JsonProperty("marca")]
-        private string _marca;
-        [JsonProperty("cor")]
-        private string _cor;
-        [JsonProperty("valorPago")]
-        private decimal _valorPago;
-        [JsonProperty("mesIpva")]
-        private int _mesIpva;
-        [JsonProperty("kmAtual")]
-        private string _kmAtual;
+        public string Placa { get; private set; }
+        public string Modelo { get; private set; }
+        public int Ano { get; private set; }
+        public string Chassi { get; private set; }
+        public string Renavam { get; private set; }
+        public string Marca { get; private set; }
+        public string Cor { get; private set; }
+        public decimal ValorPago { get; private set; }
+        public int MesIpva { get; private set; }
+        public decimal KmAtual { get; private set; }
+
         //private int _combustivelId;
         //public Combustivel Combustivel { get; private set; }
-        private Km _km;
+        public Km _km { get; private set; }
 
         public Veiculo(string placa,
                        string modelo,
@@ -40,28 +31,28 @@ namespace labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate
                        //string combustivel,
                        decimal valorPago,
                        int mesIpva,
-                       string kmAtual
+                       decimal kmAtual
                        )
         {
-            _placa = placa;
-            _modelo = modelo;
-            _ano = ano;
-            _chassi = chassi;
-            _renavam = renavam;
-            _marca = marca;
-            _cor = cor;
+            Placa = placa;
+            Modelo = modelo;
+            Ano = ano;
+            Chassi = chassi;
+            Renavam = renavam;
+            Marca = marca;
+            Cor = cor;
             //_combustivelId = Combustivel.FromName(combustivel).Id;
-            _valorPago = valorPago;
-            _mesIpva = mesIpva;
-            _kmAtual = kmAtual;
+            ValorPago = valorPago;
+            MesIpva = mesIpva;
+            KmAtual = kmAtual;
         }
 
 
-        public void AtualizaKm(string kmAtual, DateTime dateSaida, DateTime dataEntrada, string destino)
+        public void AtualizaKm(decimal kmAtual, DateTime dateSaida, DateTime dataEntrada, string destino)
         {
-            _km =  new Km(kmAtual, dateSaida, dataEntrada, destino);
+            _km = new Km(kmAtual, dateSaida, dataEntrada, destino);
 
-            this._kmAtual += kmAtual;
+            this.KmAtual += kmAtual;
         }
     }
 }

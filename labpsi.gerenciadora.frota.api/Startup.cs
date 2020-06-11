@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using labpsi.gerenciadora.frota.infra.crosscutting.ioc.Configurations;
+using labpsi.gerenciadora.frota.application.CommandHandlers;
+using MediatR;
 
 namespace labpsi.gerenciadora.frota.api
 {
@@ -35,14 +37,19 @@ namespace labpsi.gerenciadora.frota.api
         {
             var appSettings = Configuration.GetSection("Configuracoes").Get<AppSettings>();
 
+            services.AddCors();
 
             services.AddDatabaseSetup();
             services.AddDependencyInjectionSetup(appSettings);
             services.AddSwaggerSetup();
             services.AddMemoryCache();
-
+            services.AddMediatR(typeof(CriarNovoVeiculoCommandHandler));
 
             services.AddControllers();
+
+            //services.AddControllers().AddNewtonsoftJson(options =>
+            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            //);
 
 
 
@@ -59,6 +66,9 @@ namespace labpsi.gerenciadora.frota.api
             {
                 app.UseHsts();
             }
+
+            app.UseCors(option => option.AllowAnyOrigin().AllowAnyHeader());
+        
 
             app.UseRouting();
 

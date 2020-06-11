@@ -24,8 +24,6 @@ namespace labpsi.gerenciadora.frota.application.CommandHandlers
 
             veiculoAlterar.AtualizaKm(request.KmAtual, request.DateSaida, request.DataChegada, request.Destino);
 
-            _veiculoRepository.AtualizarVeiculo(veiculoAlterar);
-
             await _uow.Commit();
 
             return veiculoAlterar;

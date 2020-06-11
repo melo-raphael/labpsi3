@@ -1,7 +1,9 @@
 ﻿using labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate;
 using labpsi.gerenciadora.frota.infra.data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace labpsi.gerenciadora.frota.infra.data.Repositories
@@ -13,20 +15,20 @@ namespace labpsi.gerenciadora.frota.infra.data.Repositories
         }
 
 
-        public async Task<List<Veiculo>> GetAllVeiculos ()
+        public async Task<IEnumerable<Veiculo>> GetAllVeiculos()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            return _dbSet;
         }
 
-        public async Task<Veiculo> GetVeiculoPorId(string id)
+        public async Task<Veiculo> GetVeiculoPorId(Guid id)
         {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(veiculo => id == veiculo.Id.ToString());
+            return  _dbSet.AsNoTracking().First(veiculo => id == veiculo.Id);
         }
 
-        public async Task<bool> DeletarVeiculoPorId(string id)
+        public async Task<bool> DeletarVeiculoPorId(Guid id)
         {
-            var veiculo = await GetVeiculoPorId(id);
-            _dbSet.Remove(veiculo);
+            var veiculoPega = await _dbSet.AsNoTracking().FirstOrDefaultAsync(veiculo => id == veiculo.Id);
+            _dbSet.Remove(veiculoPega);
             return true;
         }
 

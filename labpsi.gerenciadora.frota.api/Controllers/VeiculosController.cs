@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using labpsi.gerenciadora.frota.application.Commands;
 using labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate;
 using MediatR;
@@ -38,21 +39,21 @@ namespace labpsi.gerenciadora.frota.api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> ObterVeiculoPorId([FromQuery] string id)
+        public async Task<IActionResult> ObterVeiculoPorId(Guid id)
         {
-            var result = _veiculoRepository.GetAllVeiculos();
+            var result = _veiculoRepository.GetVeiculoPorId(id);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletarVeiculoPorId([FromQuery] string id)
+        public async Task<IActionResult> DeletarVeiculoPorId(Guid id)
         {
             await _veiculoRepository.DeletarVeiculoPorId(id);
             return NoContent();
         }
 
-        [HttpPut("{id}/km}")]
-        public async Task<IActionResult> AlterarKilometroRodadoVeiculo([FromBody]AlterarKmCommand command, [FromQuery] string id)
+        [HttpPut("{id}/km")]
+        public async Task<IActionResult> AlterarKilometroRodadoVeiculo([FromBody]AlterarKmCommand command, Guid id)
         {
             command.VeiculoId = id;
             var result = await _mediator.Send(command);

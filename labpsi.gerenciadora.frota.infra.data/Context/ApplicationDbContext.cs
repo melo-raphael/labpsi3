@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate;
+using labpsi.gerenciadora.frota.infra.data.Mapping;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -8,7 +10,8 @@ namespace labpsi.gerenciadora.frota.infra.data.Context
 {
     public class ApplicationDbContext : DbContext
     {
-        //private readonly IMediator _mediator;
+
+        public DbSet<Veiculo> _veiculo;
 
         public ApplicationDbContext()
         {
@@ -21,7 +24,7 @@ namespace labpsi.gerenciadora.frota.infra.data.Context
         //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseNpgsql("Server=localhost;Port=5432;Database=labpsi;User Id=postgres;Password=lab;",
+            => options.UseNpgsql("Server=localhost;Port=5432;Database=labpsi;User Id=postgres;Password=polivel12;",
                         // => options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionString"),
                         npgsqlOptionsAction: pgOptions =>
                         {
@@ -30,7 +33,9 @@ namespace labpsi.gerenciadora.frota.infra.data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-       
+            modelBuilder.ApplyConfiguration(new KmMap());
+            modelBuilder.ApplyConfiguration(new VeiculoMap());
+
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))

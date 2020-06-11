@@ -5,11 +5,11 @@ namespace labpsi.gerenciadora.frota.domain.Aggregates.VeiculoAggregate
     public class Km : Entity
     {
 
-        public string KmAtual { get; private set; }
+        public decimal KmAtual { get; private set; }
         public DateTime DateSaida { get; private set; }
         public DateTime DataChegada { get; private set; }
         public string Destino { get; private set; }
-        public Km(string kmAtual, DateTime dateSaida, DateTime dataChegada, string destino)
+        public Km(decimal kmAtual, DateTime dateSaida, DateTime dataChegada, string destino)
         {
             KmAtual = kmAtual;
             DateSaida = dateSaida;
